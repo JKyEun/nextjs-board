@@ -1,5 +1,6 @@
 import { connectDB } from '@/util/database';
 import Link from 'next/link';
+import DetailLink from './DetailLink';
 
 export default async function List() {
   const client = await connectDB;
@@ -9,12 +10,13 @@ export default async function List() {
   return (
     <div className='list-bg'>
       {posts.map(el => (
-        <Link href={`/detail/${el._id}`}>
-          <div key={el._id} className='list-item'>
-            <h4>{el.title}</h4>
-            <p>{el.content}</p>
-          </div>
-        </Link>
+        <div className='list-item'>
+          <Link key={el._id} href={`/detail/${el._id}`}>
+            <h4>{el.title}</h4>{' '}
+          </Link>
+          <p>{el.content}</p>
+          <DetailLink id={el._id} />
+        </div>
       ))}
     </div>
   );
